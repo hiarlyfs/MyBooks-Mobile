@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
 import api from '../../services/api';
 import BooksScrollView from '../Books-ScrollView-Component';
-import SearchByTitle from '../SearchByTitle-Component';
+import SearchByTitle from '../FilterByTitle-Component';
 import {Container, Titulo} from './styles';
 
 const BooksInformation = ({apiUrl, titulo}) => {

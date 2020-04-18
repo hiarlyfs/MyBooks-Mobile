@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import TodosConcluido from './screens/Concluido/TodosLivros';
 import ConcluidoEsseAno from './screens/Concluido/EsseAno';
 import ConcluidoAnoPassado from './screens/Concluido/AnoPassado';
+import Home from './screens/Home';
 
 import Lendo from './screens/Lendo';
 import ListaDesejos from './screens/ListaDesejos';
@@ -45,6 +46,11 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen
+          options={{unmountOnBlur: true}}
+          name="Home"
+          component={Home}
+        />
         <Drawer.Screen
           options={{unmountOnBlur: true}}
           name="Concluído"
