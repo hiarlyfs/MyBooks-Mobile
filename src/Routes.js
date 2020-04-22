@@ -47,22 +47,22 @@ export default function Routes() {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen
-          options={{unmountOnBlur: true}}
+          // options={{unmountOnBlur: true}}
           name="Home"
           component={Home}
         />
         <Drawer.Screen
-          options={{unmountOnBlur: true}}
+          // options={{unmountOnBlur: true}}
           name="Concluído"
           component={LivrosConcluidos}
         />
         <Drawer.Screen
-          options={{unmountOnBlur: true}}
+          // options={{unmountOnBlur: true}}
           name="Lendo"
           component={Lendo}
         />
         <Drawer.Screen
-          options={{unmountOnBlur: true}}
+          // options={{unmountOnBlur: true}}
           name="Lista de Desejos"
           component={ListaDesejos}
         />

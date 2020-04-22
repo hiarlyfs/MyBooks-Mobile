@@ -1,13 +1,40 @@
-import React from 'react';
-import BooksInformation from '../../../components/Books-Information-Component';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
 
-const ConcluidoEsseAno = () => {
+import {createStructuredSelector} from 'reselect';
+import BooksInformation from '../../../components/Books-Information';
+
+import {
+  selectLivrosConcluidosEsseAno,
+  isLoadingConcluidos,
+} from '../../../redux/concluido/concluido.selectors';
+import {buscaConcluidoAsync} from '../../../redux/concluido/concluido.action';
+
+const TodosConcluidos = ({
+  buscaConcluidosAsync,
+  livrosConcluidosEsseAno,
+  isLoading,
+}) => {
+  useEffect(() => {
+    buscaConcluidosAsync();
+  }, []);
+
   return (
     <BooksInformation
-      apiUrl={`/livrosLidosEm?ano=${new Date().getFullYear()}`}
-      titulo={`Livros lidos em ${new Date().getFullYear()}`}
+      isLoading={isLoading}
+      allBooks={livrosConcluidosEsseAno}
+      titulo="Livros Lidos"
     />
   );
 };
 
-export default ConcluidoEsseAno;
+const mapStateToProps = createStructuredSelector({
+  livrosConcluidosEsseAno: selectLivrosConcluidosEsseAno,
+  isLoading: isLoadingConcluidos,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  buscaConcluidosAsync: () => dispatch(buscaConcluidoAsync()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodosConcluidos);

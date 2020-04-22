@@ -1,0 +1,7 @@
+const LendoTypes = {
+  BUSCA_LENDO_START: 'BUSCA_LENDO_START',
+  BUSCA_LENDO_SUCCESS: 'BUSCA_LENDO_SUCCESS',
+  BUSCA_LENDO_ERROR: 'BUSCA_LENDO_ERROR',
+};
+
+export default LendoTypes;

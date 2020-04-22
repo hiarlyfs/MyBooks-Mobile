@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Container, Key, BookInformation, Value} from './styles';
 import {getDate} from '../../utils/FormatDate';
+import DeleteButton from '../DeleteButton-Component.js';
+import BookButtons from '../BookButtons-Component';
 
 const MyBook = ({book}) => {
   const [fullSinopse, setFullSinopse] = useState(false);
@@ -45,6 +47,8 @@ const MyBook = ({book}) => {
           <Value>{getDate(new Date(book.finalizadoEm))}</Value>
         </BookInformation>
       ) : null}
+      <DeleteButton id={book._id} />
+      <BookButtons isbn={book.isbn} />
     </Container>
   );
 };

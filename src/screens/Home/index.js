@@ -26,6 +26,10 @@ const Home = () => {
   };
 
   const handleClick = () => {
+    if (!searchValue) {
+      return;
+    }
+
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(searchValue)) {
       loadData('titulo', searchValue);
