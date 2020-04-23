@@ -1,4 +1,5 @@
 import LendoTypes from './lendo.types';
+import {addLivro, exluirLivro} from '../livros.utils';
 
 const INITIAL_STATE = {
   livros: [],
@@ -24,6 +25,16 @@ const lendoReducer = (state = INITIAL_STATE, action) => {
         ...state,
         buscando: false,
         mensagemErro: action.payload,
+      };
+    case LendoTypes.ADD_LENDO_LIVRO:
+      return {
+        ...state,
+        livros: addLivro(state.livros, action.payload),
+      };
+    case LendoTypes.REMOVER_LENDO_LIVRO:
+      return {
+        ...state,
+        livros: exluirLivro(state.livros, action.payload),
       };
     default:
       return state;

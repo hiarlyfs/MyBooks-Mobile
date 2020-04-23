@@ -1,7 +1,8 @@
 import ConcluidoTypes from './concluido.types';
+import {addLivro, exluirLivro} from '../livros.utils';
 
 const INITIAL_STATE = {
-  livros: null,
+  livros: [],
   buscando: false,
   mensagemErro: undefined,
 };
@@ -24,6 +25,16 @@ const concluidoReducer = (state = INITIAL_STATE, action) => {
         ...state,
         messagemError: action.payload,
         buscando: false,
+      };
+    case ConcluidoTypes.ADD_LIVRO_CONCLUIDO:
+      return {
+        ...state,
+        livros: addLivro(state.livros, action.payload),
+      };
+    case ConcluidoTypes.REMOVER_LIVRO_CONCLUIDO:
+      return {
+        ...state,
+        livros: exluirLivro(state.livros, action.payload),
       };
     default:
       return state;

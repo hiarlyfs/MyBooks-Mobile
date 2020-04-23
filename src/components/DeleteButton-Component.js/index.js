@@ -1,14 +1,32 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {Button} from './styles';
 import api from '../../services/api';
 
-const DeleteButton = ({id}) => {
+import {removerLivroConcluido} from '../../redux/concluido/concluido.action';
+import {exluirLendoLivro} from '../../redux/lendo/lendo.action';
+import {removerLivroListaDesejo} from '../../redux/listaDesejo/listaDesejo.actions';
+
+const DeleteButton = ({
+  book,
+  // eslint-disable-next-line no-shadow
+  removerLivroConcluido,
+  // eslint-disable-next-line no-shadow
+  removerLivroListaDesejo,
+  // eslint-disable-next-line no-shadow
+  exluirLendoLivro,
+}) => {
   Icon.loadFont();
-  const [visible, setVisible] = useState(false);
   const handleClick = () => {
-    setVisible(true);
-    api.delete(`/books/${id}`);
+    // eslint-disable-next-line no-underscore-dangle
+    api.delete(`/books/${book._id}`).then((response) => {
+      if (response.status === 200) {
+        removerLivroConcluido(book);
+        removerLivroListaDesejo(book);
+        exluirLendoLivro(book);
+      }
+    });
   };
 
   return (
@@ -20,4 +38,11 @@ const DeleteButton = ({id}) => {
   );
 };
 
-export default DeleteButton;
+const mapDispatchToProps = (dispatch) => ({
+  removerLivroConcluido: (remover) => dispatch(removerLivroConcluido(remover)),
+  exluirLendoLivro: (remover) => dispatch(exluirLendoLivro(remover)),
+  removerLivroListaDesejo: (remover) =>
+    dispatch(removerLivroListaDesejo(remover)),
+});
+
+export default connect(null, mapDispatchToProps)(DeleteButton);

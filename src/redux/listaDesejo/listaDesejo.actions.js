@@ -25,3 +25,13 @@ export const buscaListaDesejoAsync = () => {
       .catch((error) => dispatch(buscaListaDesejoFailure(error.message)));
   };
 };
+
+export const addLivroListaDesejo = (novoLivro) => ({
+  type: ListaDesejoTypes.ADD_LIVRO_LISTA_DESEJO,
+  payload: novoLivro,
+});
+
+export const removerLivroListaDesejo = (remover) => ({
+  type: ListaDesejoTypes.REMOVER_LIVRO_LISTA_DESEJO,
+  payload: remover,
+});

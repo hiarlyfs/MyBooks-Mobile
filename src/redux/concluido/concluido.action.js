@@ -25,3 +25,13 @@ export const buscaConcluidoAsync = () => {
       .catch((error) => dispatch(buscaConcluidoFailure(error.message)));
   };
 };
+
+export const addLivroConcluido = (novoLivro) => ({
+  type: ConcluidoTypes.ADD_LIVRO_CONCLUIDO,
+  payload: novoLivro,
+});
+
+export const removerLivroConcluido = (remover) => ({
+  type: ConcluidoTypes.REMOVER_LIVRO_CONCLUIDO,
+  payload: remover,
+});

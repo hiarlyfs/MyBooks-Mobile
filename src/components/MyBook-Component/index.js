@@ -47,8 +47,8 @@ const MyBook = ({book}) => {
           <Value>{getDate(new Date(book.finalizadoEm))}</Value>
         </BookInformation>
       ) : null}
-      <DeleteButton id={book._id} />
-      <BookButtons isbn={book.isbn} />
+      <DeleteButton book={book} />
+      <BookButtons book={book} />
     </Container>
   );
 };

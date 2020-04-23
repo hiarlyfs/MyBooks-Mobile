@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Container, Key, BookInformation, Value} from './styles';
+import BookButtons from '../BookButtons-Component';
 
 const SearchBook = ({book}) => {
   const [fullSinopse, setFullSinopse] = useState(false);
-
   return (
     <Container>
       <BookInformation>
@@ -38,6 +38,7 @@ const SearchBook = ({book}) => {
         <Key>Edição: </Key>
         <Value>{book.edicao}</Value>
       </BookInformation>
+      <BookButtons book={book} />
     </Container>
   );
 };

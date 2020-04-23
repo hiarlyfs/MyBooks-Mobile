@@ -24,3 +24,13 @@ export const buscaLendoAsync = () => {
       .catch((error) => dispatch(buscaLendoFailure(error.message)));
   };
 };
+
+export const addLendoLivro = (novoLivro) => ({
+  type: LendoTypes.ADD_LENDO_LIVRO,
+  payload: novoLivro,
+});
+
+export const exluirLendoLivro = (remover) => ({
+  type: LendoTypes.REMOVER_LENDO_LIVRO,
+  payload: remover,
+});

@@ -4,12 +4,12 @@ import DesireButton from '../DesireListButton-Component';
 import ReadingButton from '../ReadingButton-Component';
 import ReadButton from '../ReadButton-Component';
 
-const BookButtons = ({isbn}) => {
+const BookButtons = ({book}) => {
   return (
     <ContainerButtons>
-      <DesireButton isbn={isbn} />
-      <ReadingButton isbn={isbn} />
-      <ReadButton isbn={isbn} />
+      <DesireButton book={book} />
+      <ReadingButton book={book} />
+      <ReadButton book={book} />
     </ContainerButtons>
   );
 };
