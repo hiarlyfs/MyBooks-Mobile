@@ -21,7 +21,7 @@ const ReadingButton = ({
   const handleClick = () => {
     api
       .post('/books', {
-        isbn: book.isbn,
+        volumeId: book.volumeId || book.id,
         status: 'LENDO',
       })
       .then((response) => {

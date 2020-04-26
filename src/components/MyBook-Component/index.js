@@ -22,11 +22,7 @@ const MyBook = ({book}) => {
       </BookInformation>
       <BookInformation>
         <Key>Autores: </Key>
-        <Value>
-          {book.autores
-            .map((autor) => `${autor.nome} ${autor.sobrenome}`)
-            .join(', ')}
-        </Value>
+        <Value>{book.autores.join('; ')}</Value>
       </BookInformation>
       <BookInformation>
         <Key>Sinopse: </Key>
@@ -36,10 +32,6 @@ const MyBook = ({book}) => {
           }}>
           {fullSinopse ? book.sinopse : `${book.sinopse.substring(0, 100)}...`}
         </Value>
-      </BookInformation>
-      <BookInformation>
-        <Key>Edição: </Key>
-        <Value>{book.edicao}</Value>
       </BookInformation>
       {book.finalizadoEm ? (
         <BookInformation>

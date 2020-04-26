@@ -20,7 +20,7 @@ const ReadButton = ({
   const handleClick = () => {
     api
       .post('/books', {
-        isbn: book.isbn,
+        volumeId: book.volumeId || book.id,
         status: 'FINALIZADO',
         finalizadoEm: new Date().toISOString(),
       })

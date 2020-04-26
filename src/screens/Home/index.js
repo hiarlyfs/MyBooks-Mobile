@@ -10,11 +10,11 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
-  const loadData = async (filter, value) => {
+  const loadData = async (value) => {
     setLoading(true);
-    const response = await api.get(`/searchBook?${filter}=${value}`);
-    if (response.data.status.code === 200) {
-      setBooks(response.data.books);
+    const response = await api.get(`/searchBook?titulo=${value}`);
+    if (response.status === 200) {
+      setBooks(response.data);
     } else {
       setBooks([]);
     }
@@ -31,11 +31,7 @@ const Home = () => {
     }
 
     // eslint-disable-next-line no-restricted-globals
-    if (isNaN(searchValue)) {
-      loadData('titulo', searchValue);
-    } else {
-      loadData('isbn', searchValue);
-    }
+    loadData(searchValue);
   };
 
   return (

@@ -1,5 +1,7 @@
 export const addLivro = (livros, novoLivro) => {
-  const temLivro = livros.find((livro) => livro.isbn === novoLivro.isbn);
+  const temLivro = livros.find(
+    (livro) => livro.volumeId === novoLivro.volumeId
+  );
 
   if (!temLivro) {
     return [...livros, novoLivro];
@@ -9,4 +11,4 @@ export const addLivro = (livros, novoLivro) => {
 };
 
 export const exluirLivro = (livros, remover) =>
-  livros.filter((livro) => livro.isbn !== remover.isbn);
+  livros.filter((livro) => livro.volumeId !== remover.volumeId);

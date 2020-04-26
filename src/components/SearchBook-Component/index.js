@@ -9,20 +9,20 @@ const SearchBook = ({book}) => {
       <BookInformation>
         <Key>Titulo: </Key>
         <Value>
-          {book.titulo}
-          {book.subTitulo ? `: ${book.subTitulo}` : null}
+          {book.volumeInfo.title}
+          {book.volumeInfo.subtitle ? `: ${book.volumeInfo.subtitle}` : null}
         </Value>
       </BookInformation>
       <BookInformation>
         <Key>Páginas: </Key>
-        <Value>{book.medidas.paginas}</Value>
+        <Value>{book.volumeInfo.pageCount}</Value>
       </BookInformation>
       <BookInformation>
         <Key>Autores: </Key>
         <Value>
-          {book.contribuicao
-            .map((autor) => `${autor.nome} ${autor.sobrenome}`)
-            .join(', ')}
+          {book.volumeInfo.authors
+            ? [...book.volumeInfo.authors].join('; ')
+            : ''}
         </Value>
       </BookInformation>
       <BookInformation>
@@ -31,12 +31,10 @@ const SearchBook = ({book}) => {
           onPress={() => {
             setFullSinopse(!fullSinopse);
           }}>
-          {fullSinopse ? book.sinopse : `${book.sinopse.substring(0, 100)}...`}
+          {fullSinopse
+            ? book.volumeInfo.description
+            : `${String(book.volumeInfo.description).substring(0, 100)}...`}
         </Value>
-      </BookInformation>
-      <BookInformation>
-        <Key>Edição: </Key>
-        <Value>{book.edicao}</Value>
       </BookInformation>
       <BookButtons book={book} />
     </Container>

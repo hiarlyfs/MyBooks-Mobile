@@ -7,7 +7,7 @@ const SearchBookScrollView = ({books}) => {
     <ScrollBooks>
       {books.map((book) => (
         // eslint-disable-next-line no-underscore-dangle
-        <SearchBook key={book.isbn} book={book} />
+        <SearchBook key={book.id} book={book} />
       ))}
     </ScrollBooks>
   );

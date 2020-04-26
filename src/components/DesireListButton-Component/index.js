@@ -20,7 +20,7 @@ const DesireButton = ({
   const handleClick = () => {
     api
       .post('/books', {
-        isbn: book.isbn,
+        volumeId: book.volumeId || book.id,
         status: 'LISTA DE DESEJOS',
       })
       .then((response) => {
