@@ -1,13 +1,16 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: row;
+  padding: 3px;
+  margin-bottom: 5px;
+  border: 1px solid black;
+`;
+
+export const InformationContainer = styled.View`
   display: flex;
   flex-direction: column;
-  width: 330px;
-  padding: 8px;
-  elevation: 5;
-  margin: 5px;
 `;
 
 export const BookInformation = styled.View`
@@ -15,6 +18,7 @@ export const BookInformation = styled.View`
   flex-direction: row;
   position: relative;
   margin-bottom: 5px;
+  margin-left: 5px;
 `;
 
 export const Key = styled.Text`
@@ -26,7 +30,12 @@ export const Key = styled.Text`
 export const Value = styled.Text`
   color: black;
   font-weight: normal;
-  width: 240px;
+  width: 180px;
   font-size: 14px;
   line-height: 20px;
+`;
+
+export const Image = styled.Image`
+  height: 120px;
+  width: 90px;
 `;
