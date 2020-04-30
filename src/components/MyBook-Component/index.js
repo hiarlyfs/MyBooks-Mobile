@@ -10,6 +10,7 @@ import {
 import {getDate} from '../../utils/FormatDate';
 import DeleteButton from '../DeleteButton-Component.js';
 import BookButtons from '../BookButtons-Component';
+import OpenBook from '../OpenBook';
 
 const MyBook = ({book}) => {
   const [fullSinopse, setFullSinopse] = useState(false);
@@ -18,7 +19,6 @@ const MyBook = ({book}) => {
     // eslint-disable-next-line global-require
     return require('../../assests/no-foto.jpg');
   };
-
   return (
     <Container>
       <Image source={ImageUri()} />
@@ -55,9 +55,10 @@ const MyBook = ({book}) => {
             <Value>{getDate(new Date(book.finalizadoEm))}</Value>
           </BookInformation>
         ) : null}
-        <DeleteButton book={book} />
-        <BookButtons book={book} />
+        {book.infoLink ? <OpenBook link={book.infoLink} /> : null}
       </InformationContainer>
+      <DeleteButton book={book} />
+      <BookButtons book={book} />
     </Container>
   );
 };

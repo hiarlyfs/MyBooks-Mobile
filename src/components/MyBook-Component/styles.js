@@ -4,7 +4,9 @@ export const Container = styled.View`
   display: flex;
   flex-direction: row;
   padding: 3px;
+  width: 350px;
   margin-bottom: 5px;
+  align-self: center;
   border: 1px solid black;
 `;
 

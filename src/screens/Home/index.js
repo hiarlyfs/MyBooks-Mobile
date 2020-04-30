@@ -12,13 +12,17 @@ const Home = () => {
 
   const loadData = async (value) => {
     setLoading(true);
-    const response = await api.get(`/searchBook?titulo=${value}`);
-    if (response.status === 200) {
-      setBooks(response.data);
-    } else {
-      setBooks([]);
-    }
-    setLoading(false);
+    api
+      .get(`/searchBook?titulo=${value}`)
+      .then((res) => {
+        setBooks(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const onChange = (event) => {
@@ -36,7 +40,12 @@ const Home = () => {
 
   return (
     <Container>
-      <Spinner visible={loading} cancelable textContent="Carregando..." />
+      <Spinner
+        visible={loading}
+        // eslint-disable-next-line react/jsx-boolean-value
+        cancelable={true}
+        textContent="Carregando..."
+      />
       <Titulo>Buscar Livro</Titulo>
       <SearchBook
         value={searchValue}

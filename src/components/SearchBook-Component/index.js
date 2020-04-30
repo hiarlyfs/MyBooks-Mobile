@@ -8,6 +8,7 @@ import {
   Image,
 } from './styles';
 import BookButtons from '../BookButtons-Component';
+import OpenBook from '../OpenBook';
 
 const SearchBook = ({book}) => {
   const ImageUri = () => {
@@ -51,8 +52,11 @@ const SearchBook = ({book}) => {
               : `${String(book.volumeInfo.description).substring(0, 100)}...`}
           </Value>
         </BookInformation>
-        <BookButtons book={book} />
+        {book.volumeInfo.infoLink ? (
+          <OpenBook link={book.volumeInfo.infoLink} />
+        ) : null}
       </InformationContainer>
+      <BookButtons book={book} />
     </Container>
   );
 };
