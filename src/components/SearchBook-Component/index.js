@@ -13,7 +13,12 @@ import OpenBook from '../OpenBook';
 const SearchBook = ({book}) => {
   const ImageUri = () => {
     if (book.volumeInfo.imageLinks)
-      return {uri: book.volumeInfo.imageLinks.smallThumbnail};
+      return {
+        uri: book.volumeInfo.imageLinks.smallThumbnail.replace(
+          'http://',
+          'https://'
+        ),
+      };
     // eslint-disable-next-line global-require
     return require('../../assests/no-foto.jpg');
   };
