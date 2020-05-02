@@ -35,7 +35,7 @@ const DesireButton = ({
 
   return (
     <TouchableOpacity onPress={handleClick}>
-      <Icon name="heart" size={24} />
+      <Icon name="heart" size={28} />
     </TouchableOpacity>
   );
 };

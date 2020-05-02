@@ -36,7 +36,7 @@ const ReadButton = ({
 
   return (
     <TouchableOpacity onPress={handleClick}>
-      <Icon name="check" size={24} />
+      <Icon name="check" size={28} />
     </TouchableOpacity>
   );
 };

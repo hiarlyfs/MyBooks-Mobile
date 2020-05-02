@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Dimensions} from 'react-native';
 import {
   Container,
   InformationContainer,
@@ -19,40 +20,42 @@ const MyBook = ({book}) => {
     // eslint-disable-next-line global-require
     return require('../../assests/no-foto.jpg');
   };
+  const {width} = Dimensions.get('window');
   return (
-    <Container>
+    <Container width={width}>
       <Image source={ImageUri()} />
       <InformationContainer>
         <BookInformation>
           <Key>Titulo: </Key>
-          <Value>
+          <Value width={width}>
             {book.titulo}
             {book.subTitulo ? `: ${book.subTitulo}` : null}
           </Value>
         </BookInformation>
         <BookInformation>
           <Key>Páginas: </Key>
-          <Value>{book.paginas}</Value>
+          <Value width={width}>{book.paginas}</Value>
         </BookInformation>
         <BookInformation>
           <Key>Autores: </Key>
-          <Value>{book.autores.join('; ')}</Value>
+          <Value width={width}>{book.autores.join('; ')}</Value>
         </BookInformation>
         <BookInformation>
           <Key>Sinopse: </Key>
           <Value
+            width={width}
             onPress={() => {
               setFullSinopse(!fullSinopse);
             }}>
-            {fullSinopse
-              ? book.sinopse
-              : `${book.sinopse.substring(0, 100)}...`}
+            {!fullSinopse && book.sinopse
+              ? `${book.sinopse.substring(0, 100)}...`
+              : book.sinopse}
           </Value>
         </BookInformation>
         {book.finalizadoEm ? (
           <BookInformation>
             <Key>Finalizado em: </Key>
-            <Value>{getDate(new Date(book.finalizadoEm))}</Value>
+            <Value width={width}>{getDate(new Date(book.finalizadoEm))}</Value>
           </BookInformation>
         ) : null}
         {book.infoLink ? <OpenBook link={book.infoLink} /> : null}

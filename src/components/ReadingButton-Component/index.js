@@ -36,7 +36,7 @@ const ReadingButton = ({
 
   return (
     <TouchableOpacity onPress={handleClick}>
-      <Icon name="play" size={24} />
+      <Icon name="play" size={28} />
     </TouchableOpacity>
   );
 };

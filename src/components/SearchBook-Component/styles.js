@@ -30,7 +30,7 @@ export const Key = styled.Text`
 export const Value = styled.Text`
   color: black;
   font-weight: normal;
-  width: 180px;
+  width: ${(props) => `${props.width - 180}px`};
   font-size: 14px;
   line-height: 20px;
 `;

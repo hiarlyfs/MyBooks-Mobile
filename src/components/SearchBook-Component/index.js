@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Dimensions} from 'react-native';
 import {
   Container,
   InformationContainer,
@@ -23,24 +24,25 @@ const SearchBook = ({book}) => {
     return require('../../assests/no-foto.jpg');
   };
   const [fullSinopse, setFullSinopse] = useState(false);
+  const {width} = Dimensions.get('window');
   return (
     <Container>
       <Image source={ImageUri()} />
       <InformationContainer>
         <BookInformation>
           <Key>Titulo: </Key>
-          <Value>
+          <Value width={width}>
             {book.volumeInfo.title}
             {book.volumeInfo.subtitle ? `: ${book.volumeInfo.subtitle}` : null}
           </Value>
         </BookInformation>
         <BookInformation>
           <Key>Páginas: </Key>
-          <Value>{book.volumeInfo.pageCount}</Value>
+          <Value width={width}>{book.volumeInfo.pageCount}</Value>
         </BookInformation>
         <BookInformation>
           <Key>Autores: </Key>
-          <Value>
+          <Value width={width}>
             {book.volumeInfo.authors
               ? [...book.volumeInfo.authors].join('; ')
               : ''}
@@ -49,6 +51,7 @@ const SearchBook = ({book}) => {
         <BookInformation>
           <Key>Sinopse: </Key>
           <Value
+            width={width}
             onPress={() => {
               setFullSinopse(!fullSinopse);
             }}>
