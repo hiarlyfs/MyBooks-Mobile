@@ -5,6 +5,8 @@ export const Container = styled.View`
   flex-direction: row;
   padding: 3px;
   width: ${(props) => `${props.width - 10}px`};
+  height: ${(props) => (props.expanded ? 'auto' : '70px')};
+  overflow: hidden;
   margin-bottom: 5px;
   align-self: center;
   border: 1px solid black;

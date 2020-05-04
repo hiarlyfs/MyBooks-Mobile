@@ -9,7 +9,7 @@ const SearchBook = ({value, onChange, handleClick}) => {
       <SearchBar
         value={value}
         onChange={onChange}
-        placeholder="Digite o titulo ou ISBN"
+        placeholder="Digite o título"
       />
       <Button onPress={handleClick}>
         <Icon name="search" size={22} />

@@ -14,3 +14,8 @@ export const Titulo = styled.Text`
   margin-top: 20px;
   margin-bottom: 10px;
 `;
+
+export const Spinner = styled.ActivityIndicator`
+  align-self: center;
+  top: 50px;
+`;

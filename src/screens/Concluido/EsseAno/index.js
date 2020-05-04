@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import {createStructuredSelector} from 'reselect';
-import BooksInformation from '../../../components/Books-Information';
+import AllCategoryBooks from '../../../components/AllCategoryBooks';
 
 import {
   selectLivrosConcluidosEsseAno,
@@ -20,9 +20,10 @@ const TodosConcluidos = ({
   }, []);
 
   return (
-    <BooksInformation
+    <AllCategoryBooks
+      titlePage="Livros Lidos Esse Ano"
       isLoading={isLoading}
-      allBooks={livrosConcluidosEsseAno}
+      livros={livrosConcluidosEsseAno}
       titulo="Livros Lidos"
     />
   );

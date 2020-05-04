@@ -7,7 +7,7 @@ import {
   isLoadingLendo,
 } from '../../redux/lendo/lendo.selectors';
 import {buscaLendoAsync} from '../../redux/lendo/lendo.action';
-import BooksInformation from '../../components/Books-Information';
+import AllCategoryBooks from '../../components/AllCategoryBooks';
 
 const Lendo = ({buscaLendo, livrosLendo, isLoading}) => {
   useEffect(() => {
@@ -15,10 +15,11 @@ const Lendo = ({buscaLendo, livrosLendo, isLoading}) => {
   }, []);
 
   return (
-    <BooksInformation
+    <AllCategoryBooks
+      titlePage="Lendo"
       isLoading={isLoading}
-      allBooks={livrosLendo}
-      titulo="Lendo"
+      livros={livrosLendo}
+      titulo="Livros lidos"
     />
   );
 };

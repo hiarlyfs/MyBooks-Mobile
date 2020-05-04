@@ -3,14 +3,15 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  margin-top: 15px;
+  overflow: scroll;
 `;
 
-export const Titulo = styled.Text`
-  color: black;
+export const Title = styled.Text`
   font-weight: bold;
-  font-size: 18px;
+  font-size: 24px;
   text-align: center;
-  margin-top: 20px;
   margin-bottom: 10px;
 `;
+
+export const Scroll = styled.ScrollView``;

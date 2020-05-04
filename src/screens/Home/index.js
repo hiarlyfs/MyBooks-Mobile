@@ -1,14 +1,19 @@
-import React, {useState} from 'react';
-import Spinner from 'react-native-loading-spinner-overlay';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
 import api from '../../services/api';
+import {buscaCategoriasAsync} from '../../redux/categorias/categorias.actions';
 import SearchBook from '../../components/SearchBook-Bar-Component';
-import {Container, Titulo} from './styles';
+import {Container, Titulo, Spinner} from './styles';
 import SearchBookScrollView from '../../components/SearchBook-ScrollView-Component';
 
-const Home = () => {
+const Home = ({buscaCategorias}) => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    buscaCategorias();
+  }, []);
 
   const loadData = async (value) => {
     setLoading(true);
@@ -40,21 +45,23 @@ const Home = () => {
 
   return (
     <Container>
-      <Spinner
-        visible={loading}
-        // eslint-disable-next-line react/jsx-boolean-value
-        cancelable={true}
-        textContent="Carregando..."
-      />
       <Titulo>Buscar Livro</Titulo>
       <SearchBook
         value={searchValue}
         onChange={onChange}
         handleClick={handleClick}
       />
-      <SearchBookScrollView books={books} />
+      {loading ? (
+        <Spinner size="large" />
+      ) : (
+        <SearchBookScrollView books={books} />
+      )}
     </Container>
   );
 };
 
-export default Home;
+const mapDispatchToProps = (dispatch) => ({
+  buscaCategorias: () => dispatch(buscaCategoriasAsync()),
+});
+
+export default connect(null, mapDispatchToProps)(Home);

@@ -1,28 +1,20 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 
 import {createStructuredSelector} from 'reselect';
-import BooksInformation from '../../../components/Books-Information';
+import AllCategoryBooks from '../../../components/AllCategoryBooks';
 
 import {
   selectLivrosConcluidosAnoPassado,
   isLoadingConcluidos,
 } from '../../../redux/concluido/concluido.selectors';
-import {buscaConcluidoAsync} from '../../../redux/concluido/concluido.action';
 
-const TodosConcluidos = ({
-  buscaConcluidosAsync,
-  livrosConcluidosAnoPassado,
-  isLoading,
-}) => {
-  useEffect(() => {
-    buscaConcluidosAsync();
-  }, []);
-
+const TodosConcluidos = ({livrosConcluidosAnoPassado, isLoading}) => {
   return (
-    <BooksInformation
+    <AllCategoryBooks
+      titlePage="Livros Lidos Ano Passado"
       isLoading={isLoading}
-      allBooks={livrosConcluidosAnoPassado}
+      livros={livrosConcluidosAnoPassado}
       titulo="Livros Lidos"
     />
   );
@@ -33,8 +25,4 @@ const mapStateToProps = createStructuredSelector({
   isLoading: isLoadingConcluidos,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  buscaConcluidosAsync: () => dispatch(buscaConcluidoAsync()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodosConcluidos);
+export default connect(mapStateToProps)(TodosConcluidos);

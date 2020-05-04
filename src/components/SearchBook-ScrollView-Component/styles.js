@@ -5,5 +5,4 @@ export const ScrollBooks = styled.ScrollView`
   margin-top: 8px;
   flex-direction: column;
   align-self: center;
-  height: 100%;
 `;

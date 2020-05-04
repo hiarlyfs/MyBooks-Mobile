@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {createStructuredSelector} from 'reselect';
 import {connect} from 'react-redux';
-import BooksInformation from '../../components/Books-Information';
+import AllCategoryBooks from '../../components/AllCategoryBooks';
 import {
   selectLivrosListaDesejo,
   isLoadingListaDesejo,
@@ -14,10 +14,10 @@ const Lendo = ({isLoading, listaDesejo, buscaListaDesejo}) => {
   }, []);
 
   return (
-    <BooksInformation
+    <AllCategoryBooks
+      titlePage="Lista de Desejo"
+      livros={listaDesejo}
       isLoading={isLoading}
-      allBooks={listaDesejo}
-      titulo="Lista de Desejos"
     />
   );
 };
