@@ -10,19 +10,23 @@ const CategoryBook = ({livros, titulo, isLoading}) => {
     setExpanded(!expanded);
   };
 
-  if (livros.length) {
-    return (
-      <Container expanded={expanded}>
-        <HeadContainer>
-          <Title>{titulo}:</Title>
-          <ShowCategory onClick={toogleCategory} expanded={expanded} />
-        </HeadContainer>
-        {isLoading ? <Spinner /> : <BooksScrollView books={livros} />}
-      </Container>
-    );
+  if (isLoading) {
+    return <Spinner />;
   }
 
-  return null;
+  if (!livros.length) {
+    return null;
+  }
+
+  return (
+    <Container expanded={expanded}>
+      <HeadContainer>
+        <Title>{titulo}:</Title>
+        <ShowCategory onClick={toogleCategory} expanded={expanded} />
+      </HeadContainer>
+      <BooksScrollView books={livros} />
+    </Container>
+  );
 };
 
 export default CategoryBook;

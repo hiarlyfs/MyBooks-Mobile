@@ -27,7 +27,7 @@ const AllCategoryBooks = ({titlePage, isLoading, categorias, livros}) => {
 
   useEffect(() => {
     setBooks(livros);
-  }, []);
+  }, [livros]);
 
   return (
     <Container>
