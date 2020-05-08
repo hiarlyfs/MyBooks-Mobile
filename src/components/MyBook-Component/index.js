@@ -14,7 +14,7 @@ import BookButtons from '../BookButtons-Component';
 import OpenBook from '../OpenBook';
 import ShowBook from '../ShowBook';
 
-const MyBook = ({book}) => {
+const MyBook = ({book, readButton, readingButton, desireButton}) => {
   const [fullSinopse, setFullSinopse] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const ImageUri = () => {
@@ -67,7 +67,12 @@ const MyBook = ({book}) => {
         {book.infoLink ? <OpenBook link={book.infoLink} /> : null}
       </InformationContainer>
       <DeleteButton book={book} />
-      <BookButtons book={book} />
+      <BookButtons
+        desireButton={desireButton}
+        readButton={readButton}
+        readingButton={readingButton}
+        book={book}
+      />
       <ShowBook expanded={expanded} onClick={toogleExpanded} />
     </Container>
   );

@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 import api from '../../services/api';
 import {buscaCategoriasAsync} from '../../redux/categorias/categorias.actions';
+import {selectCategoriaIsLoading} from '../../redux/categorias/categorias.selectors';
 import SearchBook from '../../components/SearchBook-Bar-Component';
-import {Container, Titulo, Spinner} from './styles';
+import {Container, Titulo, Spinner, SpinnerInicial} from './styles';
 import SearchBookScrollView from '../../components/SearchBook-ScrollView-Component';
 
-const Home = ({buscaCategorias}) => {
+const Home = ({buscaCategorias, buscandoCategorias}) => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -45,6 +47,10 @@ const Home = ({buscaCategorias}) => {
 
   return (
     <Container>
+      <SpinnerInicial
+        visible={buscandoCategorias}
+        textContent="Carregando..."
+      />
       <Titulo>Buscar Livro</Titulo>
       <SearchBook
         value={searchValue}
@@ -60,8 +66,12 @@ const Home = ({buscaCategorias}) => {
   );
 };
 
+const mapStateToProps = createStructuredSelector({
+  buscandoCategorias: selectCategoriaIsLoading,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   buscaCategorias: () => dispatch(buscaCategoriasAsync()),
 });
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import SpinnerOverlay from 'react-native-loading-spinner-overlay';
 
 export const Container = styled.View`
   display: flex;
@@ -19,3 +20,5 @@ export const Spinner = styled.ActivityIndicator`
   align-self: center;
   top: 50px;
 `;
+
+export const SpinnerInicial = styled(SpinnerOverlay)``;

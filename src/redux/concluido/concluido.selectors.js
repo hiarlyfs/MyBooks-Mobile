@@ -4,7 +4,8 @@ const selectConcluido = (state) => state.concluido;
 
 export const selectLivrosConcluidos = createSelector(
   [selectConcluido],
-  (concluido) => concluido.livros
+  (concluido) =>
+    concluido.livros.sort((a, b) => a.finalizadoEm < b.finalizadoEm)
 );
 
 export const isLoadingConcluidos = createSelector(

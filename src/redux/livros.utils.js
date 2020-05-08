@@ -1,14 +1,14 @@
+export const exluirLivro = (livros, remover) =>
+  livros.filter((livro) => livro.volumeId !== remover.volumeId);
+
 export const addLivro = (livros, novoLivro) => {
-  const temLivro = livros.find(
+  const indexLivro = livros.findIndex(
     (livro) => livro.volumeId === novoLivro.volumeId
   );
 
-  if (!temLivro) {
+  if (indexLivro === -1) {
     return [...livros, novoLivro];
   }
 
   return livros;
 };
-
-export const exluirLivro = (livros, remover) =>
-  livros.filter((livro) => livro.volumeId !== remover.volumeId);

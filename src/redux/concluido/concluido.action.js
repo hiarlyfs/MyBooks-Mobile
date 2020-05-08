@@ -35,3 +35,10 @@ export const removerLivroConcluido = (remover) => ({
   type: ConcluidoTypes.REMOVER_LIVRO_CONCLUIDO,
   payload: remover,
 });
+
+export const alterarCategoriaLivroConcluido = (livro) => {
+  return (dispatch) => {
+    dispatch(removerLivroConcluido(livro));
+    dispatch(addLivroConcluido(livro));
+  };
+};

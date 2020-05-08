@@ -35,3 +35,10 @@ export const removerLivroListaDesejo = (remover) => ({
   type: ListaDesejoTypes.REMOVER_LIVRO_LISTA_DESEJO,
   payload: remover,
 });
+
+export const alterarCategoria = (livro) => {
+  return (dispatch) => {
+    dispatch(removerLivroListaDesejo(livro));
+    dispatch(addLivroListaDesejo(livro));
+  };
+};

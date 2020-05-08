@@ -5,8 +5,16 @@ import {Picker} from '@react-native-community/picker';
 import Icon from 'react-native-vector-icons/Entypo';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-const {width} = Dimensions.get('screen');
+const {width} = Dimensions.get('window');
 Icon.loadFont();
+
+export const ViewModal = styled.View`
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  background-color: transparent;
+  justify-content: center;
+`;
 
 export const ModalView = styled.Modal``;
 
@@ -16,7 +24,6 @@ export const Container = styled.View`
   width: ${() => `${width - 10}px`};
   background-color: #fff;
   align-self: center;
-  top: 100px;
   padding: 5px;
 `;
 
@@ -51,8 +58,12 @@ export const ContainerPicker = styled.View`
   justify-content: space-between;
 `;
 
-export const PickerCategoria = ({categorias}) => (
-  <CategoriaPicker mode="dropdown">
+export const PickerCategoria = ({categorias, onValueChange, value}) => (
+  <CategoriaPicker
+    onValueChange={onValueChange}
+    selectedValue={value}
+    mode="dropdown">
+    <Picker.Item value={undefined} label="Selecione uma categoria" />
     {categorias.map((categoria) => (
       <Picker.Item
         value={categoria.nome}
@@ -69,8 +80,8 @@ export const Chave = styled.Text`
   font-size: 16px;
 `;
 
-export const NovaCategoria = () => (
-  <TouchableOpacity>
+export const NovaCategoria = ({onPress}) => (
+  <TouchableOpacity onPress={onPress}>
     <Icon size={20} name="add-to-list" />
   </TouchableOpacity>
 );

@@ -5,7 +5,10 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 
 import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
-import {addLivroListaDesejo} from '../../redux/listaDesejo/listaDesejo.actions';
+import {
+  addLivroListaDesejo,
+  alterarCategoria,
+} from '../../redux/listaDesejo/listaDesejo.actions';
 import {exluirLendoLivro} from '../../redux/lendo/lendo.action';
 import {removerLivroConcluido} from '../../redux/concluido/concluido.action';
 
@@ -21,6 +24,7 @@ const DesireButton = ({
   removerLendoLivro,
   // eslint-disable-next-line no-shadow
   removerLivroConcluido,
+  alterarCategoriaLivro,
 }) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,9 +45,13 @@ const DesireButton = ({
       })
       .then((response) => {
         if (response.status === 200) {
-          addLivroListaDesejo(response.data);
-          removerLendoLivro(response.data);
-          removerLivroConcluido(response.data);
+          if (!response.data.novo) {
+            alterarCategoriaLivro(response.data.livro);
+          } else {
+            removerLendoLivro(response.data.livro);
+            removerLivroConcluido(response.data.livro);
+            addLivroListaDesejo(response.data.livro);
+          }
           navigation.navigate('Lista de Desejos');
         }
       });
@@ -55,6 +63,7 @@ const DesireButton = ({
         <Icon name="heart" size={28} />
       </TouchableOpacity>
       <ModalConfirmation
+        confirmAction={handleActionSucess}
         actionType={Action.MOVER_LISTA_DESEJO}
         visible={modalVisible}
         closeModal={closeModal}
@@ -65,6 +74,7 @@ const DesireButton = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  alterarCategoriaLivro: (livro) => dispatch(alterarCategoria(livro)),
   addLivroListaDesejo: (novoLivro) => dispatch(addLivroListaDesejo(novoLivro)),
   removerLivroConcluido: (remover) => dispatch(removerLivroConcluido(remover)),
   removerLendoLivro: (remover) => dispatch(exluirLendoLivro(remover)),

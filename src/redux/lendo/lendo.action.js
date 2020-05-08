@@ -34,3 +34,10 @@ export const exluirLendoLivro = (remover) => ({
   type: LendoTypes.REMOVER_LENDO_LIVRO,
   payload: remover,
 });
+
+export const alterarCategoriaLivroLendo = (livro) => {
+  return (dispatch) => {
+    dispatch(exluirLendoLivro(livro));
+    dispatch(addLendoLivro(livro));
+  };
+};

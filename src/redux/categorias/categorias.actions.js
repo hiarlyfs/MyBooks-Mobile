@@ -25,3 +25,8 @@ export const buscaCategoriasAsync = () => {
       .catch((error) => dispatch(buscaCategoriasFailure(error.message)));
   };
 };
+
+export const addCategoria = (novaCategoria) => ({
+  type: CategoriasTypes.ADD_CATEGORIA,
+  payload: novaCategoria,
+});
