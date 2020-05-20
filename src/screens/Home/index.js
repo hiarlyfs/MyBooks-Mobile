@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import api from '../../services/api';
-import {buscaCategoriasAsync} from '../../redux/categorias/categorias.actions';
+import {buscaCategoriasStart} from '../../redux/categorias/categorias.actions';
 import {selectCategoriaIsLoading} from '../../redux/categorias/categorias.selectors';
 import SearchBook from '../../components/SearchBook-Bar-Component';
 import {Container, Titulo, Spinner, SpinnerInicial} from './styles';
@@ -71,7 +71,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  buscaCategorias: () => dispatch(buscaCategoriasAsync()),
+  buscaCategorias: () => dispatch(buscaCategoriasStart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

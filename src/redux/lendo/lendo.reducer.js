@@ -26,7 +26,7 @@ const lendoReducer = (state = INITIAL_STATE, action) => {
         buscando: false,
         mensagemErro: action.payload,
       };
-    case LendoTypes.ADD_LENDO_LIVRO:
+    case LendoTypes.NOVO_LENDO_LIVRO:
       return {
         ...state,
         livros: addLivro(state.livros, action.payload),

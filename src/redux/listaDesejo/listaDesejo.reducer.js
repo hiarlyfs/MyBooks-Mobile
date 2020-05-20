@@ -26,7 +26,7 @@ const listaDesejoReducer = (state = INITIAL_STATE, action) => {
         buscando: false,
         mensagemErro: action.payload,
       };
-    case ListaDesejoTypes.ADD_LIVRO_LISTA_DESEJO:
+    case ListaDesejoTypes.NOVO_LIVRO_LISTA_DESEJO:
       return {
         ...state,
         livros: addLivro(state.livros, action.payload),

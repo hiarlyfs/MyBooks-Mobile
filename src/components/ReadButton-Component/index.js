@@ -8,8 +8,6 @@ import {
   addLivroConcluido,
   alterarCategoriaLivroConcluido,
 } from '../../redux/concluido/concluido.action';
-import {removerLivroListaDesejo} from '../../redux/listaDesejo/listaDesejo.actions';
-import {exluirLendoLivro} from '../../redux/lendo/lendo.action';
 import ModalConfirmation from '../ModalConfirmation';
 
 import Action from '../../utils/Action.types';
@@ -18,9 +16,6 @@ const ReadButton = ({
   book,
   // eslint-disable-next-line no-shadow
   addLivroConcluido,
-  // eslint-disable-next-line no-shadow
-  removerLivroListaDesejo,
-  removerLendoLivro,
   alterarCategoriaLivro,
 }) => {
   const navigation = useNavigation();
@@ -47,8 +42,6 @@ const ReadButton = ({
             alterarCategoriaLivro(response.data.livro);
           } else {
             addLivroConcluido(response.data.livro);
-            removerLivroListaDesejo(response.data.livro);
-            removerLendoLivro(response.data.livro);
           }
           navigation.navigate('Concluído');
         }
@@ -75,9 +68,6 @@ const mapDispatchToProps = (dispatch) => ({
   alterarCategoriaLivro: (livro) =>
     dispatch(alterarCategoriaLivroConcluido(livro)),
   addLivroConcluido: (novoLivro) => dispatch(addLivroConcluido(novoLivro)),
-  removerLivroListaDesejo: (remover) =>
-    dispatch(removerLivroListaDesejo(remover)),
-  removerLendoLivro: (remover) => dispatch(exluirLendoLivro(remover)),
 });
 
 export default connect(null, mapDispatchToProps)(ReadButton);

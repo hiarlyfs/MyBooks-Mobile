@@ -1,5 +1,4 @@
 import ConcluidoTypes from './concluido.types';
-import api from '../../services/api';
 
 export const buscaConcluidoStart = () => ({
   type: ConcluidoTypes.BUSCA_CONCLUIDO_START,
@@ -15,20 +14,14 @@ export const buscaConcluidoFailure = (messagemErro) => ({
   payload: messagemErro,
 });
 
-export const buscaConcluidoAsync = () => {
-  return (dispatch) => {
-    dispatch(buscaConcluidoStart());
-
-    api
-      .get(`/livrosLidos`)
-      .then((response) => dispatch(buscaConcluidoSuccess(response.data)))
-      .catch((error) => dispatch(buscaConcluidoFailure(error.message)));
-  };
-};
-
 export const addLivroConcluido = (novoLivro) => ({
   type: ConcluidoTypes.ADD_LIVRO_CONCLUIDO,
   payload: novoLivro,
+});
+
+export const novoLivroConcluido = (livro) => ({
+  type: ConcluidoTypes.NOVO_LIVRO_CONCLUIDO,
+  payload: livro,
 });
 
 export const removerLivroConcluido = (remover) => ({
@@ -36,9 +29,7 @@ export const removerLivroConcluido = (remover) => ({
   payload: remover,
 });
 
-export const alterarCategoriaLivroConcluido = (livro) => {
-  return (dispatch) => {
-    dispatch(removerLivroConcluido(livro));
-    dispatch(addLivroConcluido(livro));
-  };
-};
+export const alterarCategoriaLivroConcluido = (livro) => ({
+  type: ConcluidoTypes.ALTERAR_CATEGORIA_LIVRO_CONCLUIDO,
+  payload: livro,
+});

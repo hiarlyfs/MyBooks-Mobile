@@ -21,7 +21,7 @@ const CategoryBook = ({livros, titulo, isLoading}) => {
   return (
     <Container expanded={expanded}>
       <HeadContainer>
-        <Title>{titulo}:</Title>
+        <Title onPress={toogleCategory}>{titulo}:</Title>
         <ShowCategory onClick={toogleCategory} expanded={expanded} />
       </HeadContainer>
       <BooksScrollView books={livros} />

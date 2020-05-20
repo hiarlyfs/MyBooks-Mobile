@@ -26,7 +26,7 @@ const concluidoReducer = (state = INITIAL_STATE, action) => {
         messagemError: action.payload,
         buscando: false,
       };
-    case ConcluidoTypes.ADD_LIVRO_CONCLUIDO:
+    case ConcluidoTypes.NOVO_LIVRO_CONCLUIDO:
       return {
         ...state,
         livros: addLivro(state.livros, action.payload),

@@ -6,7 +6,7 @@ import {
   selectLivrosLendo,
   isLoadingLendo,
 } from '../../redux/lendo/lendo.selectors';
-import {buscaLendoAsync} from '../../redux/lendo/lendo.action';
+import {buscaLendoStart} from '../../redux/lendo/lendo.action';
 import AllCategoryBooks from '../../components/AllCategoryBooks';
 
 const Lendo = ({buscaLendo, livrosLendo, isLoading}) => {
@@ -25,7 +25,7 @@ const Lendo = ({buscaLendo, livrosLendo, isLoading}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  buscaLendo: () => dispatch(buscaLendoAsync()),
+  buscaLendo: () => dispatch(buscaLendoStart()),
 });
 
 const mapStateToProps = createStructuredSelector({

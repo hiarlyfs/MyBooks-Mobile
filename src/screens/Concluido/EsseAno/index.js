@@ -8,15 +8,15 @@ import {
   selectLivrosConcluidosEsseAno,
   isLoadingConcluidos,
 } from '../../../redux/concluido/concluido.selectors';
-import {buscaConcluidoAsync} from '../../../redux/concluido/concluido.action';
+import {buscaConcluidoStart} from '../../../redux/concluido/concluido.action';
 
 const TodosConcluidos = ({
-  buscaConcluidosAsync,
+  buscaConcluidos,
   livrosConcluidosEsseAno,
   isLoading,
 }) => {
   useEffect(() => {
-    buscaConcluidosAsync();
+    buscaConcluidos();
   }, []);
 
   return (
@@ -35,7 +35,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  buscaConcluidosAsync: () => dispatch(buscaConcluidoAsync()),
+  buscaConcluidos: () => dispatch(buscaConcluidoStart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosConcluidos);

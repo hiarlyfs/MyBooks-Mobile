@@ -6,7 +6,7 @@ import {
   selectLivrosListaDesejo,
   isLoadingListaDesejo,
 } from '../../redux/listaDesejo/listaDesejo.selectors';
-import {buscaListaDesejoAsync} from '../../redux/listaDesejo/listaDesejo.actions';
+import {buscaListaDesejoStart} from '../../redux/listaDesejo/listaDesejo.actions';
 
 const Lendo = ({isLoading, listaDesejo, buscaListaDesejo}) => {
   useEffect(() => {
@@ -23,7 +23,7 @@ const Lendo = ({isLoading, listaDesejo, buscaListaDesejo}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  buscaListaDesejo: () => dispatch(buscaListaDesejoAsync()),
+  buscaListaDesejo: () => dispatch(buscaListaDesejoStart()),
 });
 
 const mapStateToProps = createStructuredSelector({

@@ -1,5 +1,4 @@
 import LendoTypes from './lendo.types';
-import api from '../../services/api';
 
 export const buscaLendoStart = () => ({
   type: LendoTypes.BUSCA_LENDO_START,
@@ -15,15 +14,10 @@ export const buscaLendoFailure = (messagemErro) => ({
   payload: messagemErro,
 });
 
-export const buscaLendoAsync = () => {
-  return (dispatch) => {
-    dispatch(buscaLendoStart());
-    api
-      .get('/livrosLendo')
-      .then((response) => dispatch(buscaLendoSuccess(response.data)))
-      .catch((error) => dispatch(buscaLendoFailure(error.message)));
-  };
-};
+export const novoLendoLivro = (livro) => ({
+  type: LendoTypes.NOVO_LENDO_LIVRO,
+  payload: livro,
+});
 
 export const addLendoLivro = (novoLivro) => ({
   type: LendoTypes.ADD_LENDO_LIVRO,
@@ -35,9 +29,7 @@ export const exluirLendoLivro = (remover) => ({
   payload: remover,
 });
 
-export const alterarCategoriaLivroLendo = (livro) => {
-  return (dispatch) => {
-    dispatch(exluirLendoLivro(livro));
-    dispatch(addLendoLivro(livro));
-  };
-};
+export const alterarCategoriaLivroLendo = (livro) => ({
+  type: LendoTypes.ALTERAR_CATEGORIA_LENDO,
+  payload: livro,
+});
