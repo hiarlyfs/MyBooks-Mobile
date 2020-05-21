@@ -14,22 +14,22 @@ export const buscaConcluidoFailure = (messagemErro) => ({
   payload: messagemErro,
 });
 
-export const addLivroConcluido = (novoLivro) => ({
-  type: ConcluidoTypes.ADD_LIVRO_CONCLUIDO,
-  payload: novoLivro,
+export const addLivroConcluidoStart = (informacoesLivro) => ({
+  type: ConcluidoTypes.ADD_LIVRO_CONCLUIDO_START,
+  payload: informacoesLivro,
 });
 
-export const novoLivroConcluido = (livro) => ({
-  type: ConcluidoTypes.NOVO_LIVRO_CONCLUIDO,
+export const addLivroConcluidoFailure = (error) => ({
+  type: ConcluidoTypes.ADD_LIVRO_CONCLUIDO_FAILURE,
+  payload: error,
+});
+
+export const addLivroConcluidoSuccess = (livro) => ({
+  type: ConcluidoTypes.ADD_LIVRO_CONCLUIDO_SUCCESS,
   payload: livro,
 });
 
 export const removerLivroConcluido = (remover) => ({
   type: ConcluidoTypes.REMOVER_LIVRO_CONCLUIDO,
   payload: remover,
-});
-
-export const alterarCategoriaLivroConcluido = (livro) => ({
-  type: ConcluidoTypes.ALTERAR_CATEGORIA_LIVRO_CONCLUIDO,
-  payload: livro,
 });

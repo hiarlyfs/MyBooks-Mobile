@@ -14,22 +14,22 @@ export const buscaLendoFailure = (messagemErro) => ({
   payload: messagemErro,
 });
 
-export const novoLendoLivro = (livro) => ({
-  type: LendoTypes.NOVO_LENDO_LIVRO,
+export const addLendoLivroStart = (informacoesLivro) => ({
+  type: LendoTypes.ADD_LENDO_LIVRO_START,
+  payload: informacoesLivro,
+});
+
+export const addLendoLivroSuccess = (livro) => ({
+  type: LendoTypes.ADD_LENDO_LIVRO_SUCCESS,
   payload: livro,
 });
 
-export const addLendoLivro = (novoLivro) => ({
-  type: LendoTypes.ADD_LENDO_LIVRO,
-  payload: novoLivro,
+export const addLendoLivroFailure = (mensagemErro) => ({
+  type: LendoTypes.ADD_LENDO_LIVRO_FAILURE,
+  payload: mensagemErro,
 });
 
 export const exluirLendoLivro = (remover) => ({
   type: LendoTypes.REMOVER_LENDO_LIVRO,
   payload: remover,
-});
-
-export const alterarCategoriaLivroLendo = (livro) => ({
-  type: LendoTypes.ALTERAR_CATEGORIA_LENDO,
-  payload: livro,
 });

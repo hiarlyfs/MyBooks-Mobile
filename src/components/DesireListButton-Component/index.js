@@ -5,21 +5,12 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 
 import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
-import {
-  addLivroListaDesejo,
-  alterarCategoria,
-} from '../../redux/listaDesejo/listaDesejo.actions';
+import {addLivroListaDesejoStart} from '../../redux/listaDesejo/listaDesejo.actions';
 import ModalConfirmation from '../ModalConfirmation';
 
-import api from '../../services/api';
 import Action from '../../utils/Action.types';
 
-const DesireButton = ({
-  book,
-  // eslint-disable-next-line no-shadow
-  addLivroListaDesejo,
-  alterarCategoriaLivro,
-}) => {
+const DesireButton = ({book, addLivroListaDesejo}) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const openModal = () => {
@@ -31,22 +22,11 @@ const DesireButton = ({
   };
 
   const handleActionSucess = (event, categoria) => {
-    api
-      .post('/books', {
-        volumeId: book.volumeId || book.id,
-        status: 'LISTA DE DESEJOS',
-        categoria,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          if (!response.data.novo) {
-            alterarCategoriaLivro(response.data.livro);
-          } else {
-            addLivroListaDesejo(response.data.livro);
-          }
-          navigation.navigate('Lista de Desejos');
-        }
-      });
+    addLivroListaDesejo({
+      volumeId: book.volumeId || book.id,
+      categoria,
+    });
+    navigation.navigate('Lista de Desejos');
   };
 
   return (
@@ -66,8 +46,8 @@ const DesireButton = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  alterarCategoriaLivro: (livro) => dispatch(alterarCategoria(livro)),
-  addLivroListaDesejo: (novoLivro) => dispatch(addLivroListaDesejo(novoLivro)),
+  addLivroListaDesejo: (informacoesLivro) =>
+    dispatch(addLivroListaDesejoStart(informacoesLivro)),
 });
 
 export default connect(null, mapDispatchToProps)(DesireButton);

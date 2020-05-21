@@ -44,7 +44,9 @@ const MyBook = ({book, readButton, readingButton, desireButton}) => {
         </BookInformation>
         <BookInformation>
           <Key>Autores: </Key>
-          <Value width={width}>{book.autores.join('; ')}</Value>
+          <Value width={width}>
+            {book.autores ? book.autores.join('; ') : null}
+          </Value>
         </BookInformation>
         <BookInformation>
           <Key>Sinopse: </Key>

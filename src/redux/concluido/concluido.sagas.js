@@ -1,11 +1,12 @@
-import {call, put, takeEvery, all} from 'redux-saga/effects';
+import {call, put, takeEvery, all, takeLatest} from 'redux-saga/effects';
+
 import api from '../../services/api';
 
 import {
   buscaConcluidoSuccess,
   buscaConcluidoFailure,
-  novoLivroConcluido,
-  removerLivroConcluido,
+  addLivroConcluidoFailure,
+  addLivroConcluidoSuccess,
 } from './concluido.action';
 import ConcluidoTyps from './concluido.types';
 
@@ -22,35 +23,30 @@ function* buscaLivrosConcluido() {
 }
 
 function* onAddNovoLivro({payload}) {
-  yield put(exluirLendoLivro(payload));
-  yield put(removerLivroListaDesejo(payload));
-  yield put(novoLivroConcluido(payload));
-}
+  try {
+    const response = yield call(api.post, '/books', {
+      ...payload,
+      status: 'FINALIZADO',
+    });
 
-function* onAlterarCategoriaLivro({payload}) {
-  yield put(removerLivroConcluido(payload));
-  yield put(novoLivroConcluido(payload));
+    if (response.data.novo) {
+      yield put(exluirLendoLivro(response.data.livro));
+      yield put(removerLivroListaDesejo(response.data.livro));
+    }
+    yield put(addLivroConcluidoSuccess(response.data.livro));
+  } catch (error) {
+    yield put(addLivroConcluidoFailure(error.message));
+  }
 }
 
 export function* buscaConcluidoAsync() {
-  yield takeEvery(ConcluidoTyps.BUSCA_CONCLUIDO_START, buscaLivrosConcluido);
+  yield takeLatest(ConcluidoTyps.BUSCA_CONCLUIDO_START, buscaLivrosConcluido);
 }
 
 export function* addNovoLivroConcluido() {
-  yield takeEvery(ConcluidoTyps.ADD_LIVRO_CONCLUIDO, onAddNovoLivro);
-}
-
-export function* alterarCategoriaLivro() {
-  yield takeEvery(
-    ConcluidoTyps.ALTERAR_CATEGORIA_LIVRO_CONCLUIDO,
-    onAlterarCategoriaLivro
-  );
+  yield takeEvery(ConcluidoTyps.ADD_LIVRO_CONCLUIDO_START, onAddNovoLivro);
 }
 
 export function* concluidoSagas() {
-  yield all([
-    call(buscaConcluidoAsync),
-    call(addNovoLivroConcluido),
-    call(alterarCategoriaLivro),
-  ]);
+  yield all([call(buscaConcluidoAsync), call(addNovoLivroConcluido)]);
 }

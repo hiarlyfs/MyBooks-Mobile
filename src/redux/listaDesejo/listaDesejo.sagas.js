@@ -4,8 +4,8 @@ import api from '../../services/api';
 import {
   buscaListaDesejoSuccess,
   buscaListaDesejoFailure,
-  novoLivroListaDesejo,
-  removerLivroListaDesejo,
+  addLivroListaDesejoSuccess,
+  addLivroListaDesejoFailure,
 } from './listaDesejo.actions';
 import ListaDesejoTypes from './listaDesejo.types';
 
@@ -22,14 +22,21 @@ function* buscaListaDesejoAsync() {
 }
 
 function* onAddNovoLivroDesejo({payload}) {
-  yield put(removerLivroConcluido(payload));
-  yield put(exluirLendoLivro(payload));
-  yield put(novoLivroListaDesejo(payload));
-}
+  try {
+    const response = yield call(api.post, '/books', {
+      ...payload,
+      status: 'LISTA DE DESEJOS',
+    });
 
-function* onAlterarCategoriaLivro({payload}) {
-  yield put(removerLivroListaDesejo(payload));
-  yield put(novoLivroListaDesejo(payload));
+    if (response.data.novo) {
+      yield put(removerLivroConcluido(response.data.livro));
+      yield put(exluirLendoLivro(response.data.livro));
+    }
+
+    yield put(addLivroListaDesejoSuccess(response.data.livro));
+  } catch (error) {
+    yield put(addLivroListaDesejoFailure(error.message));
+  }
 }
 
 export function* buscaLivrosListaDesejo() {
@@ -41,22 +48,11 @@ export function* buscaLivrosListaDesejo() {
 
 export function* addNovoLivroListaDesejo() {
   yield takeEvery(
-    ListaDesejoTypes.ADD_LIVRO_LISTA_DESEJO,
+    ListaDesejoTypes.ADD_LIVRO_LISTA_DESEJO_START,
     onAddNovoLivroDesejo
   );
 }
 
-export function* alterarCategoriaLivroDesejo() {
-  yield takeEvery(
-    ListaDesejoTypes.ALTERAR_CATEGORIA_LIVRO_LISTA_DESEJO,
-    onAlterarCategoriaLivro
-  );
-}
-
 export function* listaDesejoSagas() {
-  yield all([
-    call(buscaLivrosListaDesejo),
-    call(addNovoLivroListaDesejo),
-    call(alterarCategoriaLivroDesejo),
-  ]);
+  yield all([call(buscaLivrosListaDesejo), call(addNovoLivroListaDesejo)]);
 }

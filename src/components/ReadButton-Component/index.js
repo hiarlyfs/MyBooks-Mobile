@@ -3,21 +3,13 @@ import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import api from '../../services/api';
-import {
-  addLivroConcluido,
-  alterarCategoriaLivroConcluido,
-} from '../../redux/concluido/concluido.action';
+
+import {addLivroConcluidoStart} from '../../redux/concluido/concluido.action';
 import ModalConfirmation from '../ModalConfirmation';
 
 import Action from '../../utils/Action.types';
 
-const ReadButton = ({
-  book,
-  // eslint-disable-next-line no-shadow
-  addLivroConcluido,
-  alterarCategoriaLivro,
-}) => {
+const ReadButton = ({book, addLivroConcluido}) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const openModal = () => {
@@ -29,23 +21,12 @@ const ReadButton = ({
   };
 
   const handleActionSucess = (event, categoria, finalizadoEm) => {
-    api
-      .post('/books', {
-        volumeId: book.volumeId || book.id,
-        categoria,
-        status: 'FINALIZADO',
-        finalizadoEm,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          if (!response.data.novo) {
-            alterarCategoriaLivro(response.data.livro);
-          } else {
-            addLivroConcluido(response.data.livro);
-          }
-          navigation.navigate('Concluído');
-        }
-      });
+    addLivroConcluido({
+      volumeId: book.volumeId || book.id,
+      categoria,
+      finalizadoEm,
+    });
+    navigation.navigate('Concluído');
   };
 
   return (
@@ -65,9 +46,8 @@ const ReadButton = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  alterarCategoriaLivro: (livro) =>
-    dispatch(alterarCategoriaLivroConcluido(livro)),
-  addLivroConcluido: (novoLivro) => dispatch(addLivroConcluido(novoLivro)),
+  addLivroConcluido: (informacoesLivro) =>
+    dispatch(addLivroConcluidoStart(informacoesLivro)),
 });
 
 export default connect(null, mapDispatchToProps)(ReadButton);

@@ -1,11 +1,11 @@
-import {takeEvery, put, call, all} from 'redux-saga/effects';
+import {takeEvery, put, call, all, takeLatest} from 'redux-saga/effects';
 import api from '../../services/api';
 
 import {
   buscaLendoSuccess,
   buscaLendoFailure,
-  exluirLendoLivro,
-  novoLendoLivro,
+  addLendoLivroSuccess,
+  addLendoLivroFailure,
 } from './lendo.action';
 
 import {removerLivroConcluido} from '../concluido/concluido.action';
@@ -22,33 +22,31 @@ export function* buscaLendoAsync() {
   }
 }
 
-export function* onAlterarCategoria({payload}) {
-  yield put(exluirLendoLivro(payload));
-  yield put(novoLendoLivro(payload));
-}
-
 export function* onAddLivro({payload}) {
-  yield put(removerLivroConcluido(payload));
-  yield put(removerLivroListaDesejo(payload));
-  yield put(novoLendoLivro(payload));
+  try {
+    const response = yield call(api.post, '/books', {
+      ...payload,
+      status: 'LENDO',
+    });
+
+    if (response.data.novo) {
+      yield put(removerLivroConcluido(response.data.livro));
+      yield put(removerLivroListaDesejo(response.data.livro));
+    }
+    yield put(addLendoLivroSuccess(response.data.livro));
+  } catch (error) {
+    yield put(addLendoLivroFailure(error.message));
+  }
 }
 
 export function* buscaLendo() {
-  yield takeEvery(LendoTypes.BUSCA_LENDO_START, buscaLendoAsync);
+  yield takeLatest(LendoTypes.BUSCA_LENDO_START, buscaLendoAsync);
 }
 
 export function* addNovoLendoLivro() {
-  yield takeEvery(LendoTypes.ADD_LENDO_LIVRO, onAddLivro);
-}
-
-export function* alterarCategoriaLivroLendo() {
-  yield takeEvery(LendoTypes.ALTERAR_CATEGORIA_LENDO, onAlterarCategoria);
+  yield takeEvery(LendoTypes.ADD_LENDO_LIVRO_START, onAddLivro);
 }
 
 export function* lendoSagas() {
-  yield all([
-    call(buscaLendo),
-    call(alterarCategoriaLivroLendo),
-    call(addNovoLendoLivro),
-  ]);
+  yield all([call(buscaLendo), call(addNovoLendoLivro)]);
 }

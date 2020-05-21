@@ -95,6 +95,9 @@ const ModalConfirmation = ({
     case Action.LENDO:
       mensagem = 'Você está lendo o livro: ';
       break;
+    case Action.FINALIZADO:
+      mensagem = 'Terminou o livro: ';
+      break;
     default:
       mensagem = '';
   }

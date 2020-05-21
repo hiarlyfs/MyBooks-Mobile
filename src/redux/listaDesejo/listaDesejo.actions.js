@@ -14,22 +14,22 @@ export const buscaListaDesejoFailure = (mensagemErro) => ({
   payload: mensagemErro,
 });
 
-export const addLivroListaDesejo = (novoLivro) => ({
-  type: ListaDesejoTypes.ADD_LIVRO_LISTA_DESEJO,
+export const addLivroListaDesejoStart = (informacoesLivro) => ({
+  type: ListaDesejoTypes.ADD_LIVRO_LISTA_DESEJO_START,
+  payload: informacoesLivro,
+});
+
+export const addLivroListaDesejoSuccess = (novoLivro) => ({
+  type: ListaDesejoTypes.ADD_LIVRO_LISTA_DESEJO_SUCCESS,
   payload: novoLivro,
+});
+
+export const addLivroListaDesejoFailure = (mensagemErro) => ({
+  type: ListaDesejoTypes.ADD_LIVRO_LISTA_DESEJO_FAILURE,
+  payload: mensagemErro,
 });
 
 export const removerLivroListaDesejo = (remover) => ({
   type: ListaDesejoTypes.REMOVER_LIVRO_LISTA_DESEJO,
   payload: remover,
-});
-
-export const novoLivroListaDesejo = (livro) => ({
-  type: ListaDesejoTypes.NOVO_LIVRO_LISTA_DESEJO,
-  payload: livro,
-});
-
-export const alterarCategoria = (livro) => ({
-  type: ListaDesejoTypes.ALTERAR_CATEGORIA_LIVRO_LISTA_DESEJO,
-  payload: livro,
 });

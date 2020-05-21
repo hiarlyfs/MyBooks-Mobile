@@ -3,22 +3,13 @@ import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import api from '../../services/api';
-import {
-  addLendoLivro,
-  alterarCategoriaLivroLendo,
-} from '../../redux/lendo/lendo.action';
+
+import {addLendoLivroStart} from '../../redux/lendo/lendo.action';
 import ModalConfirmation from '../ModalConfirmation';
 
 import Action from '../../utils/Action.types';
 
-const ReadingButton = ({
-  book,
-  // eslint-disable-next-line no-shadow
-  addLendoLivro,
-  // eslint-disable-next-line no-shadow
-  alterarCategoriaLivro,
-}) => {
+const ReadingButton = ({book, addLendoLivro}) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const openModal = () => {
@@ -30,22 +21,12 @@ const ReadingButton = ({
   };
 
   const handleActionSucess = (event, categoria) => {
-    api
-      .post('/books', {
-        volumeId: book.volumeId || book.id,
-        status: 'LENDO',
-        categoria,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          if (!response.data.novo) {
-            alterarCategoriaLivro(response.data.livro);
-          } else {
-            addLendoLivro(response.data.livro);
-          }
-          navigation.navigate('Lendo');
-        }
-      });
+    addLendoLivro({
+      volumeId: book.volumeId || book.id,
+      categoria,
+    });
+
+    navigation.navigate('Lendo');
   };
 
   return (
@@ -65,8 +46,8 @@ const ReadingButton = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  alterarCategoriaLivro: (livro) => dispatch(alterarCategoriaLivroLendo(livro)),
-  addLendoLivro: (novoLivro) => dispatch(addLendoLivro(novoLivro)),
+  addLendoLivro: (informacoesLivro) =>
+    dispatch(addLendoLivroStart(informacoesLivro)),
 });
 
 export default connect(null, mapDispatchToProps)(ReadingButton);

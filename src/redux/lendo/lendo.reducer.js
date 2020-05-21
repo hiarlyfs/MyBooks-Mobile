@@ -10,6 +10,7 @@ const INITIAL_STATE = {
 const lendoReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LendoTypes.BUSCA_LENDO_START:
+    case LendoTypes.ADD_LENDO_LIVRO_START:
       return {
         ...state,
         buscando: true,
@@ -21,15 +22,17 @@ const lendoReducer = (state = INITIAL_STATE, action) => {
         buscando: false,
       };
     case LendoTypes.BUSCA_LENDO_ERROR:
+    case LendoTypes.ADD_LENDO_LIVRO_FAILURE:
       return {
         ...state,
         buscando: false,
         mensagemErro: action.payload,
       };
-    case LendoTypes.NOVO_LENDO_LIVRO:
+    case LendoTypes.ADD_LENDO_LIVRO_SUCCESS:
       return {
         ...state,
         livros: addLivro(state.livros, action.payload),
+        buscando: false,
       };
     case LendoTypes.REMOVER_LENDO_LIVRO:
       return {

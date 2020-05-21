@@ -10,6 +10,7 @@ const INITIAL_STATE = {
 const concluidoReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ConcluidoTypes.BUSCA_CONCLUIDO_START:
+    case ConcluidoTypes.ADD_LIVRO_CONCLUIDO_START:
       return {
         ...state,
         buscando: true,
@@ -21,16 +22,19 @@ const concluidoReducer = (state = INITIAL_STATE, action) => {
         buscando: false,
       };
     case ConcluidoTypes.BUSCA_CONCLUIDO_ERROR:
+    case ConcluidoTypes.ADD_LIVRO_CONCLUIDO_FAILURE:
       return {
         ...state,
         messagemError: action.payload,
         buscando: false,
       };
-    case ConcluidoTypes.NOVO_LIVRO_CONCLUIDO:
+    case ConcluidoTypes.ADD_LIVRO_CONCLUIDO_SUCCESS:
       return {
         ...state,
         livros: addLivro(state.livros, action.payload),
+        buscando: false,
       };
+
     case ConcluidoTypes.REMOVER_LIVRO_CONCLUIDO:
       return {
         ...state,

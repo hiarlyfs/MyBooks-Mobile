@@ -10,5 +10,7 @@ export const addLivro = (livros, novoLivro) => {
     return [...livros, novoLivro];
   }
 
-  return livros;
+  const novosLivro = exluirLivro(livros, novoLivro);
+  novosLivro.push(novoLivro);
+  return novosLivro;
 };
