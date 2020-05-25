@@ -1,5 +1,5 @@
 import LendoTypes from './lendo.types';
-import {addLivro, exluirLivro} from '../livros.utils';
+import {addLivro, exluirLivro, addLivrosInciais} from '../livros.utils';
 
 const INITIAL_STATE = {
   livros: [],
@@ -18,7 +18,7 @@ const lendoReducer = (state = INITIAL_STATE, action) => {
     case LendoTypes.BUSCA_LENDO_SUCCESS:
       return {
         ...state,
-        livros: action.payload,
+        livros: addLivrosInciais([...state.livros, ...action.payload]),
         buscando: false,
       };
     case LendoTypes.BUSCA_LENDO_ERROR:

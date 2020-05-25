@@ -1,5 +1,5 @@
 import ListaDesejoTypes from './listaDesejo.types';
-import {addLivro, exluirLivro} from '../livros.utils';
+import {addLivro, exluirLivro, addLivrosInciais} from '../livros.utils';
 
 const INITIAL_STATE = {
   livros: [],
@@ -18,8 +18,8 @@ const listaDesejoReducer = (state = INITIAL_STATE, action) => {
     case ListaDesejoTypes.BUSCA_LISTA_DESEJO_SUCCESS:
       return {
         ...state,
+        livros: addLivrosInciais([...state.livros, ...action.payload]),
         buscando: false,
-        livros: action.payload,
       };
     case ListaDesejoTypes.BUSCA_LISTA_DESEJO_ERROR:
     case ListaDesejoTypes.ADD_LIVRO_LISTA_DESEJO_FAILURE:

@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
+import NetInfo from '@react-native-community/netinfo';
+import {ToastAndroid} from 'react-native';
+import getRealm from '../../services/realm';
 import {addCategoria} from '../../redux/categorias/categorias.actions';
 import {selectTodasCategorias} from '../../redux/categorias/categorias.selectors';
+
 import {
   ModalView,
   Container,
@@ -39,6 +43,14 @@ const ModalConfirmation = ({
   const [showNewCategory, setShowNewCategory] = useState(false);
   const [inputNewCategory, setInputNewCategory] = useState('');
 
+  const showAlert = () => {
+    ToastAndroid.showWithGravity(
+      'Sem conexão à rede!',
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+  };
+
   const onChangeCategoria = (itemValue) => {
     setCategoria(itemValue);
   };
@@ -68,6 +80,17 @@ const ModalConfirmation = ({
     setInputNewCategory(event.nativeEvent.text);
   };
 
+  async function addCategoriaRealm(categoriaRealm) {
+    try {
+      const realm = await getRealm();
+      realm.write(() => {
+        realm.create('Categoria', categoriaRealm);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const createNewCategory = () => {
     api
       .post('/category', {
@@ -75,6 +98,7 @@ const ModalConfirmation = ({
       })
       .then((res) => {
         criarNovaCategoria(res.data);
+        addCategoriaRealm(res.data);
         setCategoria(res.data.nome);
         setInputNewCategory('');
         closeNewCategory();
@@ -153,8 +177,14 @@ const ModalConfirmation = ({
             </ButtonModal>
             <ButtonModal
               onPress={(event) => {
-                confirmAction(event, categoria, dataFinalizacao);
-                closeModal();
+                NetInfo.fetch().then((state) => {
+                  if (!state.isConnected) {
+                    showAlert();
+                  } else {
+                    confirmAction(event, categoria, dataFinalizacao);
+                    closeModal();
+                  }
+                });
               }}
               color="#090"
               title="ok">

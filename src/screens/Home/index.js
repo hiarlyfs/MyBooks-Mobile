@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import {ToastAndroid} from 'react-native';
+
+import NetInfo from '@react-native-community/netinfo';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
+
 import api from '../../services/api';
 import {buscaCategoriasStart} from '../../redux/categorias/categorias.actions';
 import {selectCategoriaIsLoading} from '../../redux/categorias/categorias.selectors';
@@ -9,6 +13,14 @@ import {Container, Titulo, Spinner, SpinnerInicial} from './styles';
 import SearchBookScrollView from '../../components/SearchBook-ScrollView-Component';
 
 const Home = ({buscaCategorias, buscandoCategorias}) => {
+  const showAlert = () => {
+    ToastAndroid.showWithGravity(
+      'Sem conexão à rede!',
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+  };
+
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -36,7 +48,13 @@ const Home = ({buscaCategorias, buscandoCategorias}) => {
     setSearchValue(event.nativeEvent.text);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    const connection = await NetInfo.fetch();
+    if (!connection.isConnected) {
+      showAlert();
+      return;
+    }
+
     if (!searchValue) {
       return;
     }

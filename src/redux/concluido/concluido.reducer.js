@@ -1,5 +1,5 @@
 import ConcluidoTypes from './concluido.types';
-import {addLivro, exluirLivro} from '../livros.utils';
+import {addLivro, exluirLivro, addLivrosInciais} from '../livros.utils';
 
 const INITIAL_STATE = {
   livros: [],
@@ -18,7 +18,7 @@ const concluidoReducer = (state = INITIAL_STATE, action) => {
     case ConcluidoTypes.BUSCA_CONCLUIDO_SUCCESS:
       return {
         ...state,
-        livros: action.payload,
+        livros: addLivrosInciais([...state.livros, ...action.payload]),
         buscando: false,
       };
     case ConcluidoTypes.BUSCA_CONCLUIDO_ERROR:

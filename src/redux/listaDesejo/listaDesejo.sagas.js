@@ -1,4 +1,12 @@
 import {takeEvery, all, call, put, takeLatest} from 'redux-saga/effects';
+import NetInfo from '@react-native-community/netinfo';
+
+import {
+  addLivroRealm,
+  gravarLivrosIncialRealm,
+  pegarLivrosRealm,
+} from '../livros.utils';
+
 import api from '../../services/api';
 
 import {
@@ -14,8 +22,15 @@ import {exluirLendoLivro} from '../lendo/lendo.action';
 
 function* buscaListaDesejoAsync() {
   try {
-    const response = yield api.get('/listaDesejos');
-    yield put(buscaListaDesejoSuccess(response.data));
+    const connection = yield NetInfo.fetch();
+    if (!connection.isConnected) {
+      const response = yield call(pegarLivrosRealm, 'LISTA DE DESEJOS');
+      yield put(buscaListaDesejoSuccess(response));
+    } else {
+      const response = yield api.get('/listaDesejos');
+      yield call(gravarLivrosIncialRealm, response.data, 'LISTA DE DESEJOS');
+      yield put(buscaListaDesejoSuccess(response.data));
+    }
   } catch (error) {
     yield put(buscaListaDesejoFailure(error.message));
   }
@@ -32,7 +47,7 @@ function* onAddNovoLivroDesejo({payload}) {
       yield put(removerLivroConcluido(response.data.livro));
       yield put(exluirLendoLivro(response.data.livro));
     }
-
+    yield call(addLivroRealm, response.data.livro);
     yield put(addLivroListaDesejoSuccess(response.data.livro));
   } catch (error) {
     yield put(addLivroListaDesejoFailure(error.message));

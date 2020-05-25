@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {Button} from './styles';
 import api from '../../services/api';
 
+import {excluirLivroRealm} from '../../redux/livros.utils';
+
 import {removerLivroConcluido} from '../../redux/concluido/concluido.action';
 import {exluirLendoLivro} from '../../redux/lendo/lendo.action';
 import {removerLivroListaDesejo} from '../../redux/listaDesejo/listaDesejo.actions';
@@ -34,6 +36,7 @@ const DeleteButton = ({
     // eslint-disable-next-line no-underscore-dangle
     api.delete(`/books/${book._id}`).then((response) => {
       if (response.status === 200) {
+        excluirLivroRealm(book);
         removerLivroConcluido(book);
         removerLivroListaDesejo(book);
         exluirLendoLivro(book);
